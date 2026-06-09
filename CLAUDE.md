@@ -123,6 +123,12 @@ pushes**, and use the user's commit message.
 
 ## Working agreements for Claude
 
+- **Always run Python tooling via the project's local virtualenv** at
+  `backend/.venv` — e.g. `backend/.venv/bin/python -m pytest`,
+  `backend/.venv/bin/ruff`, `backend/.venv/bin/mypy`. Do **not** use `uv run` or a
+  global `uv` to execute commands: an unrelated Anaconda env is active on this
+  machine and causes env-mismatch warnings. (`uv` is still fine for dependency
+  management like `uv sync`/`uv add`.)
 - Ask before installing dependencies or running mutating commands (enforced by
   `.claude/settings.json`).
 - Keep functions small (see code-style rule). Prefer composition + interfaces.
