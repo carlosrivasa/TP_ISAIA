@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambience Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <h1>Ambience Generator</h1>
+
+    <section class="prompt-section">
+      <label for="prompt">Describe your ambience</label>
+      <p class="hint">
+        Describe the vibe, intention, and audience. For example:
+        <em>"High-energy workout music for gym-goers who love modern hip-hop and want to feel motivated."</em>
+      </p>
+      <textarea
+        id="prompt"
+        placeholder="Describe the feeling, intention, and target audience…"
+        maxlength="2000"
+        rows="4"
+      ></textarea>
+      <div class="char-counter"><span id="char-count">0</span> / 2000</div>
+      <input id="user-id" type="text" placeholder="User ID" required>
+      <button id="submit-btn" type="button">Generate Ambience</button>
+    </section>
+
+    <div id="error-region" class="error hidden" role="alert"></div>
+    <section id="result-panel" class="result hidden" aria-live="polite"></section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
