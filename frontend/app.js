@@ -14,7 +14,7 @@ promptEl.addEventListener("input", () => {
 submitBtn.addEventListener("click", async () => {
   const prompt  = promptEl.value.trim();
   const user_id = userIdEl.value.trim();
-  if (!prompt || !user_id) return;
+  if (!prompt || !user_id) { showError("Prompt and User ID are required."); return; }
 
   setLoading(true);
   clearError();
@@ -77,7 +77,7 @@ function renderAmbience(a) {
     <p class="field"><strong>Público:</strong> ${esc(a.publico)}</p>
   `;
 
-  a.filters.forEach((f, i) => {
+  (a.filters ?? []).forEach((f, i) => {
     html += `<div class="filter"><h3>Filter ${i + 1}</h3>`;
     html += badge(f.shuffle_rule ? "Shuffle ON" : "Shuffle OFF", f.shuffle_rule ? "on" : "");
     html += badge(f.explicit ? "Explicit YES" : "Explicit NO", f.explicit ? "warn" : "");
