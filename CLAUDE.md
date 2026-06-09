@@ -112,6 +112,15 @@ ambience/
 
 ---
 
+## Development workflow (superpowers plugin)
+
+This repo enables the **superpowers** plugin (`.claude/settings.json`). Non-trivial
+features follow its workflow: **brainstorm → write plan → git worktree → TDD
+(red-green-refactor) → code review → finish branch**. Skills self-activate; let
+them. Note: superpowers favors frequent autonomous commits, but our
+`.claude/rules/git.md` takes precedence — **ask before commits, branches, and
+pushes**, and use the user's commit message.
+
 ## Working agreements for Claude
 
 - Ask before installing dependencies or running mutating commands (enforced by
