@@ -12,30 +12,30 @@ from app.models.ambience import (
 )
 
 
-def test_range_valid_min_max():
+def test_range_valid_min_max() -> None:
     r = Range(min=10.0, max=50.0)
     assert r.min == 10.0
     assert r.max == 50.0
 
 
-def test_range_min_gt_max_raises():
+def test_range_min_gt_max_raises() -> None:
     with pytest.raises(ValidationError):
         Range(min=80.0, max=20.0)
 
 
-def test_range_defaults_to_none():
+def test_range_defaults_to_none() -> None:
     r = Range()
     assert r.min is None
     assert r.max is None
 
 
-def test_range_only_min():
+def test_range_only_min() -> None:
     r = Range(min=40.0)
     assert r.min == 40.0
     assert r.max is None
 
 
-def test_filter_defaults():
+def test_filter_defaults() -> None:
     f = Filter()
     assert f.genres == []
     assert f.moods == []
@@ -45,7 +45,7 @@ def test_filter_defaults():
     assert f.popularity == Range()
 
 
-def test_ambience_content_requires_name():
+def test_ambience_content_requires_name() -> None:
     with pytest.raises(ValidationError):
         AmbienceContent(
             name="",
@@ -56,7 +56,7 @@ def test_ambience_content_requires_name():
         )
 
 
-def test_ambience_content_requires_at_least_one_filter():
+def test_ambience_content_requires_at_least_one_filter() -> None:
     with pytest.raises(ValidationError):
         AmbienceContent(
             name="My Ambience",
@@ -67,7 +67,7 @@ def test_ambience_content_requires_at_least_one_filter():
         )
 
 
-def test_ambience_content_valid():
+def test_ambience_content_valid() -> None:
     content = AmbienceContent(
         name="Workout Mix",
         intension="High energy",
@@ -79,22 +79,22 @@ def test_ambience_content_valid():
     assert len(content.filters) == 1
 
 
-def test_ambience_request_too_short():
+def test_ambience_request_too_short() -> None:
     with pytest.raises(ValidationError):
         AmbienceRequest(prompt="ab", user_id="u1")
 
 
-def test_ambience_request_too_long():
+def test_ambience_request_too_long() -> None:
     with pytest.raises(ValidationError):
         AmbienceRequest(prompt="x" * 2001, user_id="u1")
 
 
-def test_ambience_request_valid():
+def test_ambience_request_valid() -> None:
     req = AmbienceRequest(prompt="rainy afternoon jazz", user_id="u1")
     assert req.user_id == "u1"
 
 
-def test_ambience_round_trips_json():
+def test_ambience_round_trips_json() -> None:
     a = Ambience(
         uuid="test-uuid",
         user_id="u1",
