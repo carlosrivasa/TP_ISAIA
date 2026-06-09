@@ -1,5 +1,8 @@
+from datetime import datetime, timezone
+
 import pytest
 from pydantic import ValidationError
+
 from app.models.ambience import (
     Ambience,
     AmbienceContent,
@@ -7,7 +10,6 @@ from app.models.ambience import (
     Filter,
     Range,
 )
-from datetime import datetime, timezone
 
 
 def test_range_valid_min_max():
