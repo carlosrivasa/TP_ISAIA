@@ -126,6 +126,12 @@ Interfaces:
 - `AmbienceStore.save(ambience: Ambience) -> None`
 - `RateLimiter.check(user_id: str) -> None` (raises `RateLimitExceeded`)
 
+**Tooling & dependencies:** Python 3.12, **`uv`** + `pyproject.toml`, pinned deps.
+Backend: FastAPI, Pydantic v2, `pydantic-settings`; dev: `pytest`, `ruff`, `mypy`.
+The concrete dependency list and `uv` install steps live in the **implementation
+plan**, not here — and installs are run only with approval (per `settings.json` /
+`security.md`). No dependency is installed at spec time.
+
 ## 5. Request flow — `service.create(request)`
 
 1. `retriever.retrieve(prompt)` → `[]` (seam for WP-vocab RAG).
@@ -148,6 +154,11 @@ so a throttled request never reaches the LLM.
     - `prompt`: `min_length=3`, `max_length=2000` (configurable).
   - Success: **`201 Created`**, body = `Ambience`, header `Location: /ambiences/{uuid}`.
   - Declares `response_model=Ambience`, explicit `status_code=201`.
+
+**OpenAPI contract:** the committed `backend/openapi.yaml` is the contract-of-record.
+It is **generated** from the FastAPI routes + Pydantic models (not hand-authored) and
+regenerated via `/add-endpoint` after any route/model change, so contract changes are
+visible in diffs.
 
 ## 7. Error handling
 
