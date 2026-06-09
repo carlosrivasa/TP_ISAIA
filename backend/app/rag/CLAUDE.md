@@ -27,14 +27,17 @@ Defined in `interfaces.py` as `typing.Protocol`s. Everything else is an implemen
 - `LLMProvider.generate(req: LLMRequest) -> str`
   Calls the model, returns raw text/JSON. Implementations: `MockProvider` (default),
   `GeminiProvider`.
-- The component's public entrypoint is `pipeline.py::AmbiencePipeline.run(prompt) -> Ambience`,
-  which composes the three and **validates output against the `Ambience` Pydantic
-  schema** before returning.
+- The component's public entrypoint is
+  `pipeline.py::AmbiencePipeline.run(prompt) -> AmbienceContent`, which composes the
+  three and **validates output against the `AmbienceContent` Pydantic schema** before
+  returning. (The service layer wraps `AmbienceContent` with server-owned metadata —
+  `uuid`, `fingerprint`, `created_at` — to form the full `Ambience`; the LLM box never
+  produces those.)
 
 ## Rules specific to this box
 
-1. **Nothing leaks out except `Ambience` (validated) or a typed error.** No provider
-   SDK types, no raw dicts, no HTTP objects cross the boundary.
+1. **Nothing leaks out except `AmbienceContent` (validated) or a typed error.** No
+   provider SDK types, no raw dicts, no HTTP objects cross the boundary.
 2. **The LLM output is untrusted.** Always parse + validate against the schema. On
    invalid JSON: one bounded retry/repair, then raise `AmbienceGenerationError`.
 3. **Provider selection is config-driven** (`LLM_PROVIDER`, `RETRIEVER`), resolved at

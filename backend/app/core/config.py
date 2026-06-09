@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
     llm_provider: str = "mock"
     storage: str = "local"
-    data_dir: Path = Path("./backend/data")
+    data_dir: Path = Path("./data")
     cors_allow_origins: list[str] = ["http://localhost:5500"]
     rate_limit_per_minute: int = 10
 

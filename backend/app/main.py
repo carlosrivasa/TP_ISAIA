@@ -14,21 +14,38 @@ from app.models.errors import (
     LLMRateLimitError,
     RateLimitExceeded,
 )
+from app.persistence.interfaces import AmbienceStore
+from app.rag.interfaces import Pipeline
+from app.services.ambience_service import AmbienceService
 
 
-def _build_default_service() -> Any:
-    from app.persistence.local_store import LocalStore
-    from app.rag.pipeline import AmbiencePipeline
-    from app.rag.providers.mock import MockPromptBuilder, MockProvider, NoOpRetriever
-    from app.services.ambience_service import AmbienceService
+def _build_pipeline() -> Pipeline:
+    if settings.llm_provider == "mock":
+        from app.rag.pipeline import AmbiencePipeline
+        from app.rag.providers.mock import (
+            MockPromptBuilder,
+            MockProvider,
+            NoOpRetriever,
+        )
 
-    pipeline = AmbiencePipeline(
-        provider=MockProvider(),
-        retriever=NoOpRetriever(),
-        builder=MockPromptBuilder(),
-    )
-    store = LocalStore(data_dir=settings.data_dir)
-    return AmbienceService(pipeline=pipeline, store=store)
+        return AmbiencePipeline(
+            provider=MockProvider(),
+            retriever=NoOpRetriever(),
+            builder=MockPromptBuilder(),
+        )
+    raise ValueError(f"Unknown LLM_PROVIDER: {settings.llm_provider!r}")
+
+
+def _build_store() -> AmbienceStore:
+    if settings.storage == "local":
+        from app.persistence.local_store import LocalStore
+
+        return LocalStore(data_dir=settings.data_dir)
+    raise ValueError(f"Unknown STORAGE: {settings.storage!r}")
+
+
+def _build_default_service() -> AmbienceService:
+    return AmbienceService(pipeline=_build_pipeline(), store=_build_store())
 
 
 def _build_default_limiter() -> Any:
