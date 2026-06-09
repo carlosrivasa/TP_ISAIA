@@ -14,6 +14,6 @@ class LocalStore:
     def save(self, ambience: Ambience) -> None:
         path = self._data_dir / f"{ambience.uuid}.json"
         try:
-            path.write_text(ambience.model_dump_json(indent=2))
+            path.write_text(ambience.model_dump_json(indent=2), encoding="utf-8")
         except OSError as exc:
             raise AmbienceStorageError(f"Failed to write ambience: {exc}") from exc

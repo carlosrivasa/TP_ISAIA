@@ -61,5 +61,6 @@ def test_save_raises_storage_error_on_write_failure(tmp_path: Path) -> None:
     store = LocalStore(data_dir=tmp_path)
     a = _make_ambience()
     with patch("pathlib.Path.write_text", side_effect=OSError("disk full")):
-        with pytest.raises(AmbienceStorageError):
+        with pytest.raises(AmbienceStorageError) as exc_info:
             store.save(a)
+    assert isinstance(exc_info.value.__cause__, OSError)
