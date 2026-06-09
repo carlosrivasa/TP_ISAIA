@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 
+from pydantic import ValidationError
+
 from app.models.ambience import AmbienceContent
 from app.models.errors import AmbienceGenerationError
 from app.rag.interfaces import LLMProvider, PromptBuilder, Retriever
@@ -28,5 +30,5 @@ class AmbiencePipeline:
         try:
             data = json.loads(raw)
             return AmbienceContent.model_validate(data)
-        except Exception as exc:
+        except (json.JSONDecodeError, ValidationError) as exc:
             raise AmbienceGenerationError(f"Invalid LLM output: {exc}") from exc
