@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from app.models.errors import RateLimitExceeded
@@ -34,7 +36,6 @@ def test_different_users_are_independent() -> None:
 
 
 def test_expired_calls_do_not_count() -> None:
-    import time
     limiter = InMemoryRateLimiter(limit=1, window_seconds=1)
     limiter.check("u1")
     time.sleep(1.1)

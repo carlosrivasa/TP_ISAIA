@@ -10,7 +10,8 @@ class InMemoryRateLimiter:
     """Fixed-window rate limiter keyed by user_id.
 
     Not suitable for multi-process or multi-instance deployments — use a
-    Redis-backed implementation in production.
+    Redis-backed implementation in production. Memory grows O(unique users);
+    acceptable for MVP scale.
     """
 
     def __init__(self, limit: int, window_seconds: int = 60) -> None:
