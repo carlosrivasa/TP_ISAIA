@@ -63,7 +63,7 @@ def test_create_response_contains_uuid(sample_ambience: Ambience) -> None:
 def test_create_response_contains_fingerprint(sample_ambience: Ambience) -> None:
     client = _make_client(_FakeService(sample_ambience), _PassLimiter())
     res = client.post("/ambiences", json={"prompt": "rainy jazz", "user_id": "u1"})
-    assert "fingerprint" in res.json()
+    assert res.json()["fingerprint"] == sample_ambience.fingerprint
 
 
 def test_missing_prompt_returns_422(sample_ambience: Ambience) -> None:

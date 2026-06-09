@@ -48,7 +48,7 @@ def create_app(
         CORSMiddleware,
         allow_origins=settings.cors_allow_origins,
         allow_methods=["POST"],
-        allow_headers=["*"],
+        allow_headers=["Content-Type"],
     )
 
     app.state.service = service or _build_default_service()
