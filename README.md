@@ -1,3 +1,14 @@
+# TP FINAL ISAIA
+
+Trabajo Práctico Final de la materia **Introducción a la ingeniería de software asistida por IA** — Especialización en Inteligencia Artificial, FIUBA (UBA).
+
+**Tema:** Esqueleto de un producto de generación automática de ambientes musicales a partir de texto.
+
+**Alumnos:** Carlos Rivas
+**Docente:** Enzo Martin	Pacilio Irrazabal
+
+Se sigue la consigna prevista y se desarrolla el siguiente trabajo con asistencia de Claude Code y Superpowers: 
+
 # Ambience
 
 Text-to-ambience MVP: type a prompt ("rainy afternoon jazz…"), get back a structured
