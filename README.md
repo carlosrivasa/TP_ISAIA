@@ -9,6 +9,7 @@ Trabajo Práctico Final de la materia **Introducción a la ingeniería de softwa
 
 Se sigue la consigna prevista y se desarrolla el siguiente trabajo con asistencia de Claude Code y Superpowers: 
 
+
 # Ambience
 
 Text-to-ambience MVP: type a prompt ("rainy afternoon jazz…"), get back a structured
@@ -48,3 +49,7 @@ This repo ships a `.claude/` config (a deliverable):
 cp .env.example .env   # fill in as needed; mock + local need no keys
 ```
 Backend / Docker setup will be added when implementation begins.
+
+
+# [PRESENTACIÓN.pdf](PRESENTACIÓN.pdf)
+
